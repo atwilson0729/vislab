@@ -13,19 +13,31 @@ df = df[(df['Country'] != 'China')]
 new_df = df.groupby(['Country']).agg(
     {'Confirmed': 'sum', 'Deaths': 'sum', 'Recovered' : 'sum', 'Unrecovered': 'sum'}).reset_index()
 
+new_df = new_df.sort_values(by=['Confirmed'], ascending=[False]).head(20).reset_index()
 
+trace1 = go.Bar(x=new_df['Country'], y=new_df['Unrecovered'], name='Unrecovered', marker={'color': '#CD7F32'})
+trace2 = go.Bar(x=new_df['Country'], y=new_df['Recovered'],name='Recovered', marker={'color': '#9EA0A1'})
+trace3= go.Bar(x=new_df['Country'], y=new_df['Deaths'], name='Deaths', marker={'color': '#FFD700'})
+data= [trace1, trace2, trace3]
 
-data = [
-    go.Scatter(x=new_df['Recovered'],
-               y=new_df['Unrecovered'],
-               text=new_df['Country'],
-               mode='markers',
-               marker=dict(size=new_df['Confirmed'] /
-100,color=new_df['Confirmed'] /100, showscale=True))
-]
+layout = go.Layout(title='CoronaVirus Cases in the first 20 countries except China',
+                    xaxis_title="Country",
+                    yaxis_title="Number of Cases", barmode='stack')
 
-layout = go.Layout(title='Corona Virus Confirmed Cases', xaxis_title="Recovered Cases",
-                   yaxis_title="Unrecovered Cases", hovermode='closest')
+fig = go.Figure(data=data, layout=layout)
+pyo.plot(fig, filename='stackbarchart.html')
 
-fig = go.Figure(data=data, latout=layout)
-pyo.plot(fig, filename='bubblechart.html')
+#data = [
+#    go.Scatter(x=new_df['Recovered'],
+#               y=new_df['Unrecovered'],
+#               text=new_df['Country'],
+#               mode='markers',
+#               marker=dict(size=new_df['Confirmed'] /
+#100,color=new_df['Confirmed'] /100, showscale=True))
+#]
+
+#layout = go.Layout(title='Corona Virus Confirmed Cases', xaxis_title="Recovered Cases",
+#                   yaxis_title="Unrecovered Cases", hovermode='closest')
+
+#fig = go.Figure(data=data, latout=layout)
+#pyo.plot(fig, filename='bubblechart.html')
