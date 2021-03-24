@@ -3,7 +3,7 @@ import plotly.graph_objs as go
 import pandas as pd
 
 #Load CSV file from Datasets folder
-df = pd.read_csv('../Datasets/CoronaTimeSeries.csv')
+df = pd.read_csv('../../Datasets/CoronaTimeSeries.csv')
 
 # Preparing data
 # Loads the data into a plot graph object heatmap where the x-axis is the day,

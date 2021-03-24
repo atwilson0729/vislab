@@ -3,7 +3,7 @@ import plotly.offline as pyo
 import plotly.graph_objs as go
 
 # Load CSV file from Datasets folder
-df = pd.read_csv('../Datasets/CoronaTimeSeries.csv')
+df = pd.read_csv('../../Datasets/CoronaTimeSeries.csv')
 df['Date'] = pd.to_datetime(df['Date'])
 
 # Preparing data

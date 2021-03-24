@@ -3,7 +3,7 @@ import plotly.offline as pyo
 import plotly.graph_objs as go
 
 # Load CSV file from Datasets folder
-df = pd.read_csv('../Datasets/CoronavirusTotal.csv')
+df = pd.read_csv('../../Datasets/CoronavirusTotal.csv')
 
 # Filtering US Cases
 filtered_df = df[df['Country'] == 'US']

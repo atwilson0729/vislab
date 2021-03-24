@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.offline as pyo
 import plotly.graph_objs as go
 
-df = pd.read_csv('../Datasets/CoronavirusTotal.csv')
+df = pd.read_csv('../../Datasets/CoronavirusTotal.csv')
 # Removing empty spaces from State column to avoid errors
 df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
 
