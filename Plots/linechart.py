@@ -7,6 +7,9 @@ df = pd.read_csv('../Datasets/CoronaTimeSeries.csv')
 df['Date'] = pd.to_datetime(df['Date'])
 
 # Preparing data
+# Stores data in a plotly graph object scatter plot where the
+# x-axis is the date in a pandas df, the y-axis is the number of confirmed cases in a pandas df
+# and the mode is set to a line graph
 data = [go.Scatter(x=df['Date'], y=df['Confirmed'], mode='lines', name='Death')]
 
 # Preparing layout
