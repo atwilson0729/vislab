@@ -6,6 +6,8 @@ import pandas as pd
 df = pd.read_csv('../Datasets/CoronaTimeSeries.csv')
 
 # Preparing data
+# Loads the data into a plot graph object heatmap where the x-axis is the day,
+# the y axis is the week, and the z axis, or the color, is the number of recovered cases
 data = [go.Heatmap(x = df['Day'], y = df['WeekofMonth'], z = df['Recovered'].values.tolist(), colorscale = 'Jet')]
 
 # Preparing layout
