@@ -18,6 +18,7 @@ new_df = filtered_df.groupby(['State'])['Confirmed'].sum().reset_index()
 new_df = new_df.sort_values(by=['Confirmed'], ascending=[False]).head(20)
 
 # Preparing data
+#loads data into a plotly graph object where the x-axis is the state and is loaded into pandas df, and the y axis is the number of confirmed cases loaded into a pandas df
 data = [go.Bar(x=new_df['State'], y=new_df['Confirmed'])]
 
 # Preparing layout
