@@ -24,7 +24,10 @@ new_df = new_df.sort_values(by=['Confirmed'], ascending=[False]).head(20).reset_
 # Preparing data
 # Creates three plotly graph objects for bar chart data,  each with an x-axis of 'Country' in a pandas df
 # Each of the three plotly objects is a different color on the stacked chart
-# The first object has a y-axis of Unrecovered data
+# The first object has a y-axis of Unrecovered data in pandas df
+# The second object has a y-axis of recovered data in pandas df
+# The third object has a y-axis of deaths data in pandas df
+# The graph objects are then all stored in a list named data
 trace1 = go.Bar(x=new_df['Country'], y=new_df['Unrecovered'], name='Unrecovered', marker={'color': '#CD7F32'})
 trace2 = go.Bar(x=new_df['Country'], y=new_df['Recovered'],name='Recovered', marker={'color': '#9EA0A1'})
 trace3= go.Bar(x=new_df['Country'], y=new_df['Deaths'], name='Deaths', marker={'color': '#FFD700'})
