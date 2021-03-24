@@ -3,7 +3,7 @@ import plotly.graph_objs as go
 import pandas as pd
 
 #Load CSV file from Datasets folder
-df = pd.read_csv('../Datasets/Weather2014-15.csv')
+df = pd.read_csv('../../Datasets/Weather2014-15.csv')
 
 
 # Preparing data

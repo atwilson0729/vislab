@@ -2,7 +2,7 @@ import pandas as pd
 import plotly.offline as pyo
 import plotly.graph_objs as go
 
-df = pd.read_csv('../Datasets/Olympic2016Rio.csv')
+df = pd.read_csv('../../Datasets/Olympic2016Rio.csv')
 
 df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
 
