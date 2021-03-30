@@ -15,8 +15,7 @@ df4 = pd.read_csv('../Datasets/Olympic2016Rio.csv')
 app = dash.Dash()
 
 # Bar chart data
-barchart_df = df4[df4['NOC'] == 'Gold']
-barchart_df = df4[df4['NOC'] == 'Total']
+barchart_df = df4[df4['NOC'] != 'Portugal(POR)']
 barchart_df = barchart_df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
 barchart_df = barchart_df.groupby(['NOC'])['Gold'].sum().reset_index()
 barchart_df = barchart_df.sort_values(by=['Gold'], ascending=[False]).head(20)
@@ -113,12 +112,12 @@ app.layout = html.Div(children=[
     html.Hr(style={'color': '#7FDBFF'}),
     html.H3('Stack bar chart', style={'color': '#df1e56'}),
     html.Div(
-        'This stack bar chart represent the CoronaVirus deaths, recovered and under treatment of all reported first 20 countries except China.'),
+        'This stack bar chart represents the medals earned during the 2016 olympics by country.'),
     dcc.Graph(id='graph3',
               figure={
                   'data': data_stackbarchart,
-                  'layout': go.Layout(title='Corona Virus Cases in the first 20 country expect China',
-                                      xaxis={'title': 'Country'}, yaxis={'title': 'Number of cases'},
+                  'layout': go.Layout(title='Medals earned by country in the 2016 olympics',
+                                      xaxis={'title': 'Country'}, yaxis={'title': 'Medals'},
                                       barmode='stack')
               }
               ),
