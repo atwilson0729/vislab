@@ -6,6 +6,7 @@ import pandas as pd
 import plotly.graph_objs as go
 
 # Load CSV file from Datasets folder
+# Added ../ because my folder structure is different
 df1 = pd.read_csv('../../Datasets/CoronavirusTotal.csv')
 df2 = pd.read_csv('../../Datasets/CoronaTimeSeries.csv')
 df3 = pd.read_csv('../../Datasets/Weather2014-15.csv')
@@ -128,7 +129,7 @@ app.layout = html.Div(children=[
               figure={
                   'data': data_linechart,
                   'layout': go.Layout(title='Weather statistics from 2014-2015',
-                                      xaxis={'title': 'date'}, yaxis={'title': 'Number of cases'})
+                                      xaxis={'title': 'date'}, yaxis={'title': 'Average max temperature'})
               }
               ),
     html.Hr(style={'color': '#7FDBFF'}),
