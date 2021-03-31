@@ -6,10 +6,10 @@ import pandas as pd
 import plotly.graph_objs as go
 
 # Load CSV file from Datasets folder
-df1 = pd.read_csv('../Datasets/CoronavirusTotal.csv')
-df2 = pd.read_csv('../Datasets/CoronaTimeSeries.csv')
-df3 = pd.read_csv('../Datasets/Weather2014-15.csv')
-df4 = pd.read_csv('../Datasets/Olympic2016Rio.csv')
+df1 = pd.read_csv('../../Datasets/CoronavirusTotal.csv')
+df2 = pd.read_csv('../../Datasets/CoronaTimeSeries.csv')
+df3 = pd.read_csv('../../Datasets/Weather2014-15.csv')
+df4 = pd.read_csv('../../Datasets/Olympic2016Rio.csv')
 
 
 app = dash.Dash()
@@ -50,23 +50,23 @@ trace3_multiline = go.Scatter(x=multiline_df['date'], y=multiline_df['actual_mea
 data_multiline = [trace1_multiline, trace2_multiline, trace3_multiline]
 
 # Bubble chart
-bubble_df = df1.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
-bubble_df['Unrecovered'] = bubble_df['Confirmed'] - bubble_df['Deaths'] - bubble_df['Recovered']
-bubble_df = bubble_df[(bubble_df['Country'] != 'China')]
-bubble_df = bubble_df.groupby(['Country']).agg(
-    {'Confirmed': 'sum', 'Recovered': 'sum', 'Unrecovered': 'sum'}).reset_index()
+bubble_df = df3.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+# bubble_df['Unrecovered'] = bubble_df['Confirmed'] - bubble_df['Deaths'] - bubble_df['Recovered']
+# bubble_df = bubble_df[(bubble_df['Country'] != 'China')]
+bubble_df = bubble_df.groupby(['month']).agg(
+    {'average_min_temp': 'sum', 'average_max_temp': 'sum'}).reset_index()
 data_bubblechart = [
-    go.Scatter(x=bubble_df['Recovered'],
-               y=bubble_df['Unrecovered'],
-               text=bubble_df['Country'],
+    go.Scatter(x=bubble_df['average_min_temp'],
+               y=bubble_df['average_max_temp'],
+               text=bubble_df['month'],
                mode='markers',
-               marker=dict(size=bubble_df['Confirmed'] / 200, color=bubble_df['Confirmed'] / 200, showscale=True))
+               marker=dict(size=bubble_df['average_min_temp'] / 200, color=bubble_df['average_min_temp'] / 200, showscale=True))
 ]
 
 # Heatmap
-data_heatmap = [go.Heatmap(x=df2['Day'],
-                           y=df2['WeekofMonth'],
-                           z=df2['Recovered'].values.tolist(),
+data_heatmap = [go.Heatmap(x=df3['day'],
+                           y=df3['month'],
+                           z=df3['actual_max_temp'].values.tolist(),
                            colorscale='Jet')]
 
 # Layout
@@ -146,24 +146,24 @@ app.layout = html.Div(children=[
     html.Hr(style={'color': '#7FDBFF'}),
     html.H3('Bubble chart', style={'color': '#df1e56'}),
     html.Div(
-        'This bubble chart represent the Corona Virus recovered and under treatment of all reported countries except China.'),
+        'This bubble chart represents the Average Minimum and Maximum temperature per month in 2016.'),
     dcc.Graph(id='graph6',
               figure={
                   'data': data_bubblechart,
-                  'layout': go.Layout(title='Corona Virus Confirmed Cases',
-                                      xaxis={'title': 'Recovered Cases'}, yaxis={'title': 'under Treatment Cases'},
+                  'layout': go.Layout(title='Average min and max temperature',
+                                      xaxis={'title': 'Min temp sum'}, yaxis={'title': 'Max temp sum'},
                                       hovermode='closest')
               }
               ),
     html.Hr(style={'color': '#7FDBFF'}),
     html.H3('Heat map', style={'color': '#df1e56'}),
     html.Div(
-        'This heat map represent the Corona Virus recovered cases of all reported cases per day of week and week of month.'),
+        'This heat map represents the Actual Max Temperature for each day of the week and each month of the year in 2016.'),
     dcc.Graph(id='graph7',
               figure={
                   'data': data_heatmap,
-                  'layout': go.Layout(title='Corona Virus Recovered Cases',
-                                      xaxis={'title': 'Day of Week'}, yaxis={'title': 'Week of Month'})
+                  'layout': go.Layout(title='Max temperature per month',
+                                      xaxis={'title': 'Day of Week'}, yaxis={'title': 'Month of Year'})
               }
               )
 ])
